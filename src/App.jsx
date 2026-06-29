@@ -286,10 +286,23 @@ const steps = [
   { n: "3", title: "Stay protected", desc: "It self-updates and self-heals — always current with zero effort." },
 ];
 
+// ---- Checkout links --------------------------------------------------
+// Paste the Lemon Squeezy / Paddle checkout URL for each plan here.
+// Until you do, buttons fall back to the contact section so no sale is lost.
+const CHECKOUT = {
+  oneYear: "",   // e.g. "https://cybercleanerpro.lemonsqueezy.com/buy/xxxx-1yr"
+  threeYear: "", // e.g. "https://cybercleanerpro.lemonsqueezy.com/buy/xxxx-3yr"
+  lifetime: "",  // e.g. "https://cybercleanerpro.lemonsqueezy.com/buy/xxxx-life"
+};
+const buyHref = (key) => CHECKOUT[key] || "#contact";
+
 const plans = [
-  { name: "1-Year", tag: "Starter", features: ["All security modules", "AI scans + MRT", "Auto-updates", "Email support"], highlight: false },
-  { name: "3-Year", tag: "Best Value", features: ["Everything in 1-Year", "Priority support", "Multi-device ready", "Save vs. annual"], highlight: true },
-  { name: "Lifetime", tag: "Forever", features: ["Everything, forever", "All future updates", "Premium support", "One-time payment"], highlight: false },
+  { name: "1-Year", tag: "Starter", price: "$19", per: "/year", buy: "oneYear",
+    features: ["All security modules", "AI scans + MRT", "Auto-updates", "Email support"], highlight: false },
+  { name: "3-Year", tag: "Best Value", price: "$39", per: "/3 years", buy: "threeYear",
+    features: ["Everything in 1-Year", "Priority support", "Multi-device ready", "Save vs. annual"], highlight: true },
+  { name: "Lifetime", tag: "Forever", price: "$59", per: "one-time", buy: "lifetime",
+    features: ["Everything, forever", "All future updates", "Premium support", "Pay once, own it"], highlight: false },
 ];
 
 const stats = [
@@ -456,8 +469,8 @@ function Pricing() {
       <div className="container">
         <div className="section-head" data-reveal>
           <span className="kicker">PLANS</span>
-          <h2>Simple, premium pricing</h2>
-          <p>Pick the term that fits. Every plan unlocks the complete suite — call for current pricing.</p>
+          <h2>Simple, honest pricing</h2>
+          <p>One product, every feature, no hidden upsells or surprise renewals. Secure checkout in USD.</p>
         </div>
         <div className="price-grid">
           {plans.map((p, i) => (
@@ -465,13 +478,17 @@ function Pricing() {
               {p.highlight && <div className="price-flag">Most popular</div>}
               <div className="price-tag">{p.tag}</div>
               <h3>{p.name}</h3>
-              <div className="price-amt">Call for pricing</div>
+              <div className="price-amt"><span className="price-big">{p.price}</span> <span className="price-per">{p.per}</span></div>
               <ul>
                 {p.features.map((f) => <li key={f}>✓ {f}</li>)}
               </ul>
-              <a href="#contact" className={"btn" + (p.highlight ? "" : " btn-ghost")}>Choose {p.name}</a>
+              <a href={buyHref(p.buy)} className={"btn" + (p.highlight ? "" : " btn-ghost")}>Buy {p.name}</a>
             </div>
           ))}
+        </div>
+        <div className="guarantee" data-reveal>
+          <span className="guarantee-badge">🛡️ 30-Day Money-Back Guarantee</span>
+          <span>Not happy? Email us within 30 days for a full refund — no questions asked. Secure payment &amp; instant key delivery.</span>
         </div>
       </div>
     </section>
@@ -554,6 +571,10 @@ function Footer() {
         <div className="footer-links">
           <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
+          <a href="#/privacy">Privacy</a>
+          <a href="#/terms">Terms</a>
+          <a href="#/refund">Refund</a>
+          <a href="#/eula">EULA</a>
           <a href="#contact">Contact</a>
         </div>
         <div className="footer-copy">© {new Date().getFullYear()} CyberCleaner Pro · All rights reserved</div>
@@ -562,8 +583,148 @@ function Footer() {
   );
 }
 
+// ---- Trust bar (all factual claims) ---------------------------------
+const trustItems = [
+  ["🔒", "Secure checkout", "Encrypted payment, instant license delivery"],
+  ["↩️", "30-day refund", "Full money-back guarantee, no questions"],
+  ["🚫", "No auto-renew traps", "You're never charged by surprise"],
+  ["✅", "Real results only", "Every scan uses genuine Windows queries"],
+  ["📞", "US support line", "(786) 602-9045 · 1-800-CLEANUP"],
+];
+function TrustBar() {
+  return (
+    <section className="trustbar">
+      <div className="container trustbar-grid">
+        {trustItems.map((t) => (
+          <div className="trust-item" key={t[1]} data-reveal>
+            <span className="trust-ico">{t[0]}</span>
+            <div><b>{t[1]}</b><p>{t[2]}</p></div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ---- Reviews: add REAL customer reviews here as you collect them. -----
+// Leave empty to hide the section — never ship fake testimonials.
+const reviews = [
+  // { name: "Jane D., Texas", stars: 5, text: "Cleaned up my laptop in minutes." },
+];
+function Reviews() {
+  if (!reviews.length) return null;
+  return (
+    <section className="section reviews" id="reviews">
+      <div className="container">
+        <div className="section-head" data-reveal>
+          <span className="kicker">CUSTOMERS</span>
+          <h2>What people say</h2>
+        </div>
+        <div className="review-grid">
+          {reviews.map((r, i) => (
+            <div className="review-card" data-reveal key={i}>
+              <div className="review-stars">{"★".repeat(r.stars)}</div>
+              <p>“{r.text}”</p>
+              <div className="review-name">{r.name}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ---- Legal pages -----------------------------------------------------
+const COMPANY = "CyberCleaner Pro";
+const CONTACT_EMAIL = "adamthompson23456@gmail.com";
+const today = "2026";
+const LEGAL = {
+  privacy: {
+    title: "Privacy Policy",
+    body: [
+      ["What we collect", `When you activate ${COMPANY}, the app stores the name and email you enter and a non-personal machine identifier, license plan, app version, and trial/paid status. This is used to deliver your license, provide support, and improve the product.`],
+      ["How we use it", `We use your information to activate and manage your license, send important product and security updates, and respond to support requests. We do not sell your personal information.`],
+      ["Telemetry", `The app reports basic install data (machine ID, plan, version) to our servers so we can support you and push updates. It does not collect the contents of your files.`],
+      ["Payments", `Purchases are processed by our payment provider (Merchant of Record). Your card details are handled by them and are never stored by us.`],
+      ["Your rights", `You may request access to or deletion of your data at any time by emailing ${CONTACT_EMAIL}.`],
+      ["Contact", `Questions about privacy? Email ${CONTACT_EMAIL} or call (786) 602-9045.`],
+    ],
+  },
+  terms: {
+    title: "Terms of Service",
+    body: [
+      ["Agreement", `By downloading, installing, or using ${COMPANY}, you agree to these Terms. If you do not agree, do not use the software.`],
+      ["License", `We grant you a personal, non-transferable license to use ${COMPANY} on the number of devices covered by your plan, for the plan's duration. You may not resell, redistribute, or reverse-engineer the software without written permission.`],
+      ["Acceptable use", `You agree to use ${COMPANY} only on computers you own or are authorized to manage, and in compliance with all applicable laws.`],
+      ["Disclaimers", `${COMPANY} is provided "as is." While it uses genuine Windows security tools, no security product can guarantee a system is 100% safe. We are not liable for data loss; always keep backups.`],
+      ["Changes", `We may update the software and these Terms over time. Continued use after changes means you accept the updated Terms.`],
+      ["Contact", `Questions? Email ${CONTACT_EMAIL}.`],
+    ],
+  },
+  refund: {
+    title: "Refund Policy",
+    body: [
+      ["30-day money-back guarantee", `If you're not satisfied with ${COMPANY}, contact us within 30 days of purchase for a full refund — no questions asked.`],
+      ["How to request", `Email ${CONTACT_EMAIL} from the address you used to purchase, with your order/license details. Refunds are issued to the original payment method, typically within 5–10 business days.`],
+      ["After 30 days", `Purchases are generally non-refundable after 30 days, except where required by law.`],
+      ["Lifetime plans", `Lifetime licenses are covered by the same 30-day guarantee.`],
+    ],
+  },
+  eula: {
+    title: "End User License Agreement (EULA)",
+    body: [
+      ["License grant", `Subject to your payment and these terms, ${COMPANY} grants you a limited, revocable, non-exclusive, non-transferable license to install and use the software for personal or internal business use on devices covered by your plan.`],
+      ["Restrictions", `You may not copy (except for backup), modify, distribute, sublicense, rent, or reverse-engineer the software. Each license key is bound to your machine(s) and may be revoked if these terms are violated.`],
+      ["Updates", `The software may automatically download and install updates to keep you protected. By using it, you consent to these updates.`],
+      ["Termination", `This license ends if you breach these terms. On termination you must stop using and remove the software.`],
+      ["Warranty & liability", `The software is provided without warranty of any kind. To the maximum extent permitted by law, ${COMPANY} is not liable for indirect or consequential damages.`],
+      ["Contact", `For licensing questions, email ${CONTACT_EMAIL}.`],
+    ],
+  },
+};
+function useHashRoute() {
+  const [hash, setHash] = useState(window.location.hash);
+  useEffect(() => {
+    const on = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", on);
+    return () => window.removeEventListener("hashchange", on);
+  }, []);
+  const m = hash.match(/^#\/(privacy|terms|refund|eula)/);
+  return m ? m[1] : null;
+}
+function LegalPage({ page }) {
+  const data = LEGAL[page];
+  useEffect(() => { window.scrollTo(0, 0); }, [page]);
+  return (
+    <div className="legal-wrap">
+      <header className="nav">
+        <div className="container nav-inner">
+          <a href="#/" className="brand" onClick={() => { window.location.hash = ""; }}>
+            <span className="brand-mark">🛡️</span>
+            <span>CyberCleaner<span className="brand-pro"> Pro</span></span>
+          </a>
+          <a href="#/" className="btn btn-sm" onClick={() => { window.location.hash = ""; }}>← Back to site</a>
+        </div>
+      </header>
+      <div className="container legal">
+        <h1>{data.title}</h1>
+        <p className="legal-updated">Last updated: {today}</p>
+        {data.body.map((sec) => (
+          <section key={sec[0]}>
+            <h2>{sec[0]}</h2>
+            <p>{sec[1]}</p>
+          </section>
+        ))}
+        <p className="legal-note">{COMPANY} · {CONTACT_EMAIL} · (786) 602-9045</p>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
+  const route = useHashRoute();
   useReveal();
+  if (route) return <LegalPage page={route} />;
   return (
     <>
       <ParticleField />
@@ -574,7 +735,9 @@ export default function App() {
       <Stats />
       <Features />
       <How />
+      <Reviews />
       <Pricing />
+      <TrustBar />
       <Download />
       <CTA />
       <Footer />

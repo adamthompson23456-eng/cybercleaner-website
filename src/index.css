@@ -242,6 +242,42 @@ h1, h2, .brand, .stat-num, .score-num, .price-card h3 { font-family: "Space Grot
 .price-tag { color: var(--cyan); font-weight: 700; letter-spacing: 1px; font-size: .82rem; text-transform: uppercase; }
 .price-card h3 { color: var(--white); font-size: 1.7rem; margin: 6px 0 4px; }
 .price-amt { color: var(--mute); font-weight: 600; margin-bottom: 18px; }
+.price-big { font-family: "Space Grotesk", sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--white); }
+.price-per { font-size: .92rem; color: var(--mute); }
+
+/* guarantee banner */
+.guarantee {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;
+  margin-top: 34px; padding: 18px 26px; border-radius: 16px;
+  background: rgba(0,229,199,.07); border: 1px solid rgba(0,229,199,.28);
+  color: var(--ice); font-size: .98rem; text-align: center;
+}
+.guarantee-badge { color: var(--cyan); font-weight: 700; white-space: nowrap; }
+
+/* trust bar */
+.trustbar { border-top: 1px solid rgba(120,160,230,.12); border-bottom: 1px solid rgba(120,160,230,.12); background: rgba(18,26,56,.45); backdrop-filter: blur(10px); padding: 28px 0; }
+.trustbar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.trust-item { display: flex; gap: 12px; align-items: flex-start; }
+.trust-ico { font-size: 1.4rem; line-height: 1; }
+.trust-item b { color: var(--white); font-size: .96rem; display: block; }
+.trust-item p { color: var(--mute); font-size: .82rem; margin-top: 2px; }
+
+/* reviews */
+.review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.review-card { background: rgba(24,33,66,.55); backdrop-filter: blur(12px); border: 1px solid rgba(120,160,230,.16); border-radius: var(--radius); padding: 26px; }
+.review-stars { color: var(--amber); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px; }
+.review-card p { color: var(--ice); font-size: 1rem; }
+.review-name { color: var(--cyan); font-weight: 600; font-size: .9rem; margin-top: 14px; }
+
+/* legal pages */
+.legal-wrap { min-height: 100vh; }
+.legal { max-width: 820px; padding-top: 40px; padding-bottom: 70px; }
+.legal h1 { font-family: "Space Grotesk", sans-serif; color: var(--white); font-size: 2.4rem; margin-bottom: 6px; }
+.legal-updated { color: var(--mute); margin-bottom: 30px; font-size: .9rem; }
+.legal section { margin-bottom: 24px; }
+.legal h2 { color: var(--cyan); font-size: 1.15rem; margin-bottom: 6px; }
+.legal p { color: var(--ice); font-size: 1rem; }
+.legal-note { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--navy3); color: var(--mute); font-size: .88rem; }
 .price-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; flex: 1; }
 .price-card li { color: var(--ice); font-size: .96rem; }
 .price-card .btn { width: 100%; }
@@ -316,6 +352,8 @@ h1, h2, .brand, .stat-num, .score-num, .price-card h3 { font-family: "Space Grot
   .download-card { grid-template-columns: 1fr; padding: 32px 24px; gap: 28px; }
   .download-right { order: -1; }
   .install-strip { grid-template-columns: 1fr; gap: 14px; }
+  .trustbar-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .review-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .step-arrow { display: none; }
   .nav-toggle { display: block; }
