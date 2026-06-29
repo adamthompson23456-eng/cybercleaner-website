@@ -1,0 +1,10 @@
+# Netlify deploy config for CyberCleaner Pro website
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Single-page app: send any unknown path back to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
